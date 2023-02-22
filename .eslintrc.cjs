@@ -354,7 +354,7 @@ module.exports = {
     ],
     "@typescript-eslint/type-annotation-spacing": ["error"],
     "@typescript-eslint/require-await": "warn",
-    "import/no-default-export": "error",
+    "import/no-default-export": "off",
     "import/no-dynamic-require": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/no-unassigned-import": ["error", { allow: ["react", "**/*.css"] }],
