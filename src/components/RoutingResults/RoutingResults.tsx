@@ -30,8 +30,8 @@ export const RoutingResults: React.FC<RoutingResultsProps> = ({ totalDistance, s
         doc.setFont("Libre");
 
         doc.text([`Dane trasy:`,
-         `Adres poczatkowy: ${startingAddress}`,
-         `Adres koncowy: ${endingAddress}`,
+        `Adres poczatkowy: ${startingAddress}`,
+        `Adres koncowy: ${endingAddress}`,
         `Ilosc kilometrow: ${kilometers}`,
         `Czas podrozy: ${calculatedTime < 1 ? "ponizej dnia" : `${calculatedTime.toFixed(2)}
                         ${calculatedTime < 2 ? "dnia" : "dni"}`}`,

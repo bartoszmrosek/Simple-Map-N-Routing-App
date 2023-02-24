@@ -1,4 +1,32 @@
+@font-face {
+    font-family: "AbhayaLibre";
+    src: url("./public/AbhayaLibre-Regular.ttf");
+}
+
+@font-face {
+    font-family: "AbhayaLibre";
+    src: url("./public/AbhayaLibre-Bold.ttf");
+    font-weight: bolder;
+}
+
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: "AbhayaLibre", Arial;
+}
+
+:root {
+    --yellowish: #EFF3CD;
+    --lightGreeny: #B2D5BA;
+    --mainGreeny: #61ADA0;
+    --darkGreeny: #248F8D;
+    --violet: #605063;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+    background: #EFF3CD;
 }
