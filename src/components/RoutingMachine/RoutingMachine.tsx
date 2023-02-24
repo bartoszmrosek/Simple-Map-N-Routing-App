@@ -5,8 +5,9 @@ import { CoordinateWaypoint } from "../../types";
 import "leaflet-routing-machine";
 
 interface CreateRoutingMachineLayerProps {
-    startingWaypoint: CoordinateWaypoint;
-    endingWaypoint: CoordinateWaypoint;
+    startingWaypoint: CoordinateWaypoint & { address: string; };
+    endingWaypoint: CoordinateWaypoint & { address: string; };
+    getKilometers: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 const blueIcon = new L.Icon({
@@ -27,7 +28,11 @@ const redIcon = new L.Icon({
     shadowSize: [41, 41],
 });
 
-const createRoutingMachineLayer = ({ startingWaypoint, endingWaypoint }: L.ControlOptions & CreateRoutingMachineLayerProps) => {
+const createRoutingMachineLayer = ({
+    startingWaypoint,
+    endingWaypoint,
+    getKilometers,
+}: L.ControlOptions & CreateRoutingMachineLayerProps) => {
     const instance = L.Routing.control({
         waypoints: [
             L.latLng(startingWaypoint.lat, startingWaypoint.lng),
@@ -38,17 +43,24 @@ const createRoutingMachineLayer = ({ startingWaypoint, endingWaypoint }: L.Contr
         createMarker: (i: number, wp: L.Routing.Waypoint, nth: number) => {
             if (i === nth - 1) {
                 return L.marker(wp.latLng, { icon: redIcon, riseOnHover: true })
-                    .bindTooltip("Pozycja docelowa");
+                    .bindTooltip(`Adres docelowy: ${endingWaypoint.address}`);
             }
             return L.marker(wp.latLng, { icon: blueIcon, riseOnHover: true })
-                .bindTooltip("Pozycja początkowa");
+                .bindTooltip(`Adres startowy: ${startingWaypoint.address}`);
         },
         lineOptions: { extendToWaypoints: true, missingRouteTolerance: 1, styles: [{ color: "blue", weight: 3 }] },
-        collapsible: false,
         addWaypoints: false,
         routeWhileDragging: true,
         fitSelectedRoutes: true,
         showAlternatives: false,
+        summaryTemplate: "<h2>{name}</h2><h3>{distance}</h3>",
+        containerClassName: "routingControl",
+    });
+    instance.on("routesfound", (event: { routes: { summary: { totalDistance: number; }; }[]; }) => {
+        const routes = event.routes;
+        if (routes[0]) {
+            getKilometers(routes[0].summary.totalDistance);
+        }
     });
     return instance;
 };

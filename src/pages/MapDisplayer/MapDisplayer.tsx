@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import H from "@here/maps-api-for-javascript";
+import { HashLoader } from "react-spinners";
 import { RouteHistoryRecord, CoordinateWaypoint } from "../../types";
 import "leaflet/dist/leaflet.css";
 import "./MapDisplayer.css";
 import { RoutingMachine } from "../../components/RoutingMachine/RoutingMachine";
+import { isValidError } from "../../utils";
+import { RoutingResults } from "../../components/RoutingResults/RoutingResults";
 
 interface MapDisplayerProps {
     routeToDisplay: RouteHistoryRecord;
@@ -18,15 +21,19 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
     const [isLoading, setIsLoading] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [codedCoords, setCodedCoords] = useState<[CoordinateWaypoint, CoordinateWaypoint] | null | Error>(null);
+    const [totalDistance, setTotalDistance] = useState<number | null>(null);
 
     useEffect(() => {
         if (!routeToDisplay.from || !routeToDisplay.to) { return; }
         setIsLoading(true);
         try {
             const hereService = platform.getSearchService();
-            hereService.geocode({ q: routeToDisplay.from }, (firstResults) => {
-                hereService.geocode({ q: routeToDisplay.to }, (secondResults) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            hereService.geocode({ q: routeToDisplay.from }, (firstResults: any) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                hereService.geocode({ q: routeToDisplay.to }, (secondResults: any) => {
                     setCodedCoords(
+                        // HERE api have type Object for results so it throws many errors in typescript
                         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                         [firstResults.items[0].position as CoordinateWaypoint, secondResults.items[0].position as CoordinateWaypoint],
                     );
@@ -34,26 +41,44 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
             }, (error) => { throw new Error(`${error}`); });
         } catch (err) {
             setCodedCoords(err as Error);
+        } finally {
+            setIsLoading(false);
         }
     }, [routeToDisplay]);
 
-    console.log(codedCoords);
     return (
-        <main>
-            {routeToDisplay.from} to: {routeToDisplay.to}
+        <main className="mainMap">
             <div className="mapWrapper">
-                {codedCoords !== null || !isLoading && (
-                    <MapContainer doubleClickZoom={false} id="mapId" zoom={7} center={[52.2, 21]} style={{ height: "100%", width: "100%" }}>
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <RoutingMachine
-                            startingWaypoint={{ lat: 50.31943335077848, lng: 19.00325770377468 }}
-                            endingWaypoint={{ lat: 50.34739583924648, lng: 18.981784221261226 }}
-                        />
-                    </MapContainer>
-                )}
+                {!isLoading || (!isValidError(codedCoords) || codedCoords !== null) ? (
+                    <>
+                        <MapContainer
+                            doubleClickZoom={false}
+                            id="mapId"
+                            zoom={7}
+                            center={[52.2, 21]}
+                            style={{ height: "100%", width: "100%" }}
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            {codedCoords && !isValidError(codedCoords) && (
+                                <RoutingMachine
+                                    startingWaypoint={{ lat: codedCoords[0].lat, lng: codedCoords[0].lng, address: routeToDisplay.from }}
+                                    endingWaypoint={{ lat: codedCoords[0].lat, lng: codedCoords[1].lng, address: routeToDisplay.to }}
+                                    getKilometers={setTotalDistance}
+                                />
+                            )}
+                        </MapContainer>
+                        {totalDistance && (
+                            <RoutingResults
+                                totalDistance={totalDistance}
+                                startingAddress={routeToDisplay.from}
+                                endingAddress={routeToDisplay.to}
+                            />
+                        )}
+                    </>
+                ) : <HashLoader loading={true} size={100} />}
             </div>
         </main>
     );

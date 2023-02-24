@@ -37,23 +37,23 @@ export const Home: React.FC<HomeProps> = ({ addNewHistoryEntry, setRouteFromHist
     return (
         <main>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="fromInput">Starting address:</label>
+                <label htmlFor="fromInput">Adres początkowy:</label>
                 <input
                     id="fromInput"
                     value={fromInputValue}
-                    placeholder="Write starting address here"
+                    placeholder="Adres poczatkowy"
                     onChange={handleInput}
 
                 />
-                <label htmlFor="toInput">Destination address:</label>
+                <label htmlFor="toInput">Adres docelowy:</label>
                 <input
                     id="toInput"
                     value={toInputValue}
-                    placeholder="Write destination address here"
+                    placeholder="Adres docelowy"
                     onChange={handleInput}
                     title="Address should contain: "
                 />
-                <button type="submit">Submit</button>
+                <button type="submit">Ustaw trasę</button>
             </form>
             <div className="historyWrapper">
                 {mapRoutesHistory.map((route) => <MapRoute key={route.id} route={route} setRouteFromHistory={setRouteFromHistory} />)}

@@ -1,4 +1,36 @@
+.mainMap {
+    display: flex;
+    justify-content: center;
+}
+
 .mapWrapper {
     width: 90%;
-    height: 90vh;
+    height: 50vh;
+    padding: 1rem;
+}
+
+.routingControl {
+    background: rgba(255, 255, 255, 0.7);
+    border: none !important;
+    outline: none !important;
+    text-align: center;
+    margin-left: 2rem;
+}
+
+.leaflet-routing-alt {
+    height: 20vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.leaflet-routing-alt>table {
+    position: sticky;
+}
+
+.leaflet-routing-alt>table>tbody {
+    height: 50%;
+}
+
+.leaflet-routing-alt>table>tbody>tr {
+    cursor: pointer;
 }

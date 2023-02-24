@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export const Navbar: React.FC = () => {
     return (
         <nav>
-            <Link to="/">Home</Link>
-            <Link to="/Map">Map</Link>
+            <Link to="/">Strona główna</Link>
+            <Link to="/Map">Mapa</Link>
         </nav>
     );
 };
