@@ -13,6 +13,11 @@
     flex-direction: column;
 }
 
+.mapContainer {
+    height: 40vh;
+    width: 100%;
+}
+
 .routingControl {
     background: rgba(255, 255, 255, 0.7);
     border: none !important;

@@ -50,25 +50,30 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
             <div className="mapWrapper">
                 {!isLoading && (!isValidError(codedCoords) || codedCoords !== null) ? (
                     <>
-                        <MapContainer
-                            doubleClickZoom={false}
-                            id="mapId"
-                            zoom={7}
-                            center={[52.2, 21]}
-                            style={{ height: "100%", width: "100%" }}
-                        >
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                            {codedCoords && !isValidError(codedCoords) && (
-                                <RoutingMachine
-                                    startingWaypoint={{ lat: codedCoords[0].lat, lng: codedCoords[0].lng, address: routeToDisplay.from }}
-                                    endingWaypoint={{ lat: codedCoords[0].lat, lng: codedCoords[1].lng, address: routeToDisplay.to }}
-                                    getKilometers={setTotalDistance}
+                        <div className="mapContainer">
+
+                            <MapContainer
+                                doubleClickZoom={false}
+                                id="mapId"
+                                zoom={7}
+                                center={[52.2, 21]}
+                                style={{ height: "100%", width: "100%" }}
+                            >
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
-                            )}
-                        </MapContainer>
+                                {codedCoords && !isValidError(codedCoords) && (
+                                    <RoutingMachine
+                                        startingWaypoint={
+                                            { lat: codedCoords[0].lat, lng: codedCoords[0].lng, address: routeToDisplay.from }
+                                        }
+                                        endingWaypoint={{ lat: codedCoords[0].lat, lng: codedCoords[1].lng, address: routeToDisplay.to }}
+                                        getKilometers={setTotalDistance}
+                                    />
+                                )}
+                            </MapContainer>
+                        </div>
                         {totalDistance && (
                             <RoutingResults
                                 totalDistance={totalDistance}
