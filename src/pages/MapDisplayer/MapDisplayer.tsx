@@ -49,7 +49,7 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
     return (
         <main className="mainMap">
             <div className="mapWrapper">
-                {!isLoading || (!isValidError(codedCoords) || codedCoords !== null) ? (
+                {!isLoading && (!isValidError(codedCoords) || codedCoords !== null) ? (
                     <>
                         <MapContainer
                             doubleClickZoom={false}

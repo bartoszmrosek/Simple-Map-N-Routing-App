@@ -1,0 +1,65 @@
+.routingResults {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem;
+    border: 2px solid var(--violet);
+    padding: 0.5rem 4rem;
+    border-radius: 2rem;
+}
+
+.inputCurrency {
+    position: relative;
+}
+
+.inputCurrency input {
+    padding-right: 18px;
+    text-align: end;
+}
+
+.inputCurrency::before {
+    position: absolute;
+    top: 30%;
+    content: "zł";
+    right: 5px;
+}
+
+.routingResults>label {
+    font-size: larger;
+}
+
+#kmCost {
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--violet);
+    border-radius: 2rem;
+    font-size: larger;
+}
+
+.currentStatistics {
+    font-size: large;
+    color: var(--darkGreeny);
+    text-align: center;
+}
+
+.downloadPdfBtn {
+    padding: 1rem;
+    margin: 0.2rem;
+    font-size: large;
+    color: var(--violet);
+    border-radius: 4rem;
+    border: none;
+    background: var(--mainGreeny);
+    cursor: pointer;
+}
+
+.downloadPdfBtn:hover {
+    filter: drop-shadow(0 0 10px);
+}
+
+.downloadPdfBtn:active {
+    transform: scale(0.9);
+}

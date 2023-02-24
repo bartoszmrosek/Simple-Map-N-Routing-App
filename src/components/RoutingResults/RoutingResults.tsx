@@ -2,6 +2,7 @@ import JsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import React, { useCallback, useState } from "react";
 import { font } from "./PDFFont";
+import "./RoutingResults.css";
 
 interface RoutingResultsProps {
     totalDistance: number;
@@ -44,10 +45,12 @@ export const RoutingResults: React.FC<RoutingResultsProps> = ({ totalDistance, s
 
     return (
         <div className="routingResults">
-            <label htmlFor="kmCost">Koszt za kilometr:</label>
-            <input id="kmCost" value={`${kilometerCost}`} onChange={handleInput} placeholder="cena za kilometr" type="number" />
+            <label htmlFor="kmCost">Koszt za kilometr</label>
+            <span className="inputCurrency">
+                <input id="kmCost" value={`${kilometerCost}`} onChange={handleInput} placeholder="cena za kilometr" type="number" />
+            </span>
             <div className="currentStatistics">
-                <p>Ilość kilometrów: {kilometers.toFixed(2)}</p>
+                <p>Ilość kilometrów: {kilometers.toFixed(2)} km</p>
                 {kilometerCost > 0 ? (
                     <>
                         <p>Czas podróży: {
@@ -55,9 +58,9 @@ export const RoutingResults: React.FC<RoutingResultsProps> = ({ totalDistance, s
                         ${calculatedTime < 2 ? "dnia" : "dni"}`}
                         </p>
                         <p>Obecny koszt: {calulatedCost} zł</p>
-                        <button onClick={handleSave}>Pobierz pdf`a</button>
+                        <button onClick={handleSave} className="downloadPdfBtn">Pobierz pdf</button>
                     </>
-                ) : <p>Dane niedoestępne z powodu braku ceny</p>
+                ) : <p>Dane niedostępne z powodu braku ceny</p>
             }
             </div>
         </div>
