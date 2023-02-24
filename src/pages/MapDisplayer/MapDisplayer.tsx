@@ -19,7 +19,6 @@ const platform = new H.service.Platform({
 
 export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) => {
     const [isLoading, setIsLoading] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [codedCoords, setCodedCoords] = useState<[CoordinateWaypoint, CoordinateWaypoint] | null | Error>(null);
     const [totalDistance, setTotalDistance] = useState<number | null>(null);
 

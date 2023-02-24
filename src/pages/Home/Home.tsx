@@ -11,7 +11,6 @@ interface HomeProps {
     mapRoutesHistory: RouteHistoryRecord[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const Home: React.FC<HomeProps> = ({ addNewHistoryEntry, setRouteFromHistory, setRouteToDisplay, mapRoutesHistory }) => {
     const [fromInputValue, setFromInputValue] = useState<string>("");
     const [toInputValue, setToInputValue] = useState<string>("");
