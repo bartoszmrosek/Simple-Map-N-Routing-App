@@ -28,7 +28,7 @@ export const App: React.FC = () => {
             <Navbar />
             <Routes>
                 <Route
-                    path="/"
+                    path="/Simple-Map-N-Routing-App/"
                     element={(
                         <Home
                             addNewHistoryEntry={addNewHistoryEntry}
@@ -39,7 +39,7 @@ export const App: React.FC = () => {
                     )}
                 />
                 <Route path="Map/*" element={<MapDisplayer routeToDisplay={routeToDisplay} />} />
-                <Route path="*" element={<Navigate to="/" replace={true} />} />
+                <Route path="*" element={<Navigate to="/Simple-Map-N-Routing-App/" replace={true} />} />
             </Routes>
         </>
     );
