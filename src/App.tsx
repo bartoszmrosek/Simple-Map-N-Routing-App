@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Home } from "./pages/Home/Home";
@@ -27,20 +27,19 @@ export const App: React.FC = () => {
         <>
             <Navbar />
             <Routes>
-                <Route path="/*">
-                    <Route
-                        index={true}
-                        element={(
-                            <Home
-                                addNewHistoryEntry={addNewHistoryEntry}
-                                setRouteFromHistory={setRouteFromHistory}
-                                setRouteToDisplay={setRouteToDisplay}
-                                mapRoutesHistory={mapRoutesHistory}
-                            />
-                        )}
-                    />
-                    <Route path="Map/*" element={<MapDisplayer routeToDisplay={routeToDisplay} />} />
-                </Route>
+                <Route
+                    path="/"
+                    element={(
+                        <Home
+                            addNewHistoryEntry={addNewHistoryEntry}
+                            setRouteFromHistory={setRouteFromHistory}
+                            setRouteToDisplay={setRouteToDisplay}
+                            mapRoutesHistory={mapRoutesHistory}
+                        />
+                    )}
+                />
+                <Route path="Map/*" element={<MapDisplayer routeToDisplay={routeToDisplay} />} />
+                <Route path="*" element={<Navigate to="/" replace={true} />} />
             </Routes>
         </>
     );
