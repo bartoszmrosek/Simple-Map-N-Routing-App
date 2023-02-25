@@ -55,7 +55,7 @@ const createRoutingMachineLayer = ({
         showAlternatives: false,
         summaryTemplate: "<h2>{name}</h2><h3>{distance}</h3>",
         containerClassName: "routingControl",
-    });
+    } as L.Routing.RoutingControlOptions);
     instance.on("routesfound", (event: { routes: { summary: { totalDistance: number; }; }[]; }) => {
         const routes = event.routes;
         if (routes[0]) {
