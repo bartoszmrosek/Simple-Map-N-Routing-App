@@ -6,7 +6,7 @@ on:
       - master 
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,8 +23,6 @@ jobs:
     - name: yarn test
       run: |
         yarn test 
-      env:
-        CI: true
       
     - name: yarn build
       run: |
