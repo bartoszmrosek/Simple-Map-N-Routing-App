@@ -27,18 +27,20 @@ export const App: React.FC = () => {
         <>
             <Navbar />
             <Routes>
-                <Route
-                    path="/"
-                    element={(
-                        <Home
-                            addNewHistoryEntry={addNewHistoryEntry}
-                            setRouteFromHistory={setRouteFromHistory}
-                            setRouteToDisplay={setRouteToDisplay}
-                            mapRoutesHistory={mapRoutesHistory}
-                        />
-                    )}
-                />
-                <Route path="Map/*" element={<MapDisplayer routeToDisplay={routeToDisplay} />} />
+                <Route path="/*">
+                    <Route
+                        index={true}
+                        element={(
+                            <Home
+                                addNewHistoryEntry={addNewHistoryEntry}
+                                setRouteFromHistory={setRouteFromHistory}
+                                setRouteToDisplay={setRouteToDisplay}
+                                mapRoutesHistory={mapRoutesHistory}
+                            />
+                        )}
+                    />
+                    <Route path="Map/*" element={<MapDisplayer routeToDisplay={routeToDisplay} />} />
+                </Route>
             </Routes>
         </>
     );
