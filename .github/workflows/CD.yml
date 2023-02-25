@@ -39,4 +39,7 @@ jobs:
         run: yarn run build
 
       - name: Deploy to GitHub Pages
-        run: yarn run deploy
+        run: |
+          git config --global user.email bartoszmrosek@op.pl
+          git config --global user.name Bartosz Mrosek
+          yarn run deploy
