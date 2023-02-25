@@ -21,6 +21,8 @@ export const Home: React.FC<HomeProps> = ({ addNewHistoryEntry, setRouteFromHist
         const route = { id: uuidv4(), to: toInputValue, from: fromInputValue };
         setRouteToDisplay(route);
         addNewHistoryEntry(route);
+        setFromInputValue("");
+        setToInputValue("");
     }, [addNewHistoryEntry, fromInputValue, setRouteToDisplay, toInputValue]);
 
     const handleInput = useCallback(
@@ -60,6 +62,7 @@ export const Home: React.FC<HomeProps> = ({ addNewHistoryEntry, setRouteFromHist
                         type="submit"
                         className="formSubmitBtn"
                         disabled={!fromInputValue || !toInputValue}
+                        data-testid="routeSetter"
                     >Ustaw trasę
                     </button>
                 </form>

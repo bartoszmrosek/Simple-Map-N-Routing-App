@@ -44,7 +44,7 @@ export const RoutingResults: React.FC<RoutingResultsProps> = ({ totalDistance, s
     }, [calculatedTime, calulatedCost, endingAddress, kilometers, startingAddress]);
 
     return (
-        <div className="routingResults">
+        <div className="routingResults" data-testid="routingResults">
             <label htmlFor="kmCost">Koszt za kilometr</label>
             <span className="inputCurrency">
                 <input id="kmCost" value={`${kilometerCost}`} onChange={handleInput} placeholder="cena za kilometr" type="number" />

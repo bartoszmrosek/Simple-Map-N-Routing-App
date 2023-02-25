@@ -36,11 +36,11 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
                         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                         [firstResults.items[0].position as CoordinateWaypoint, secondResults.items[0].position as CoordinateWaypoint],
                     );
+                    setIsLoading(false);
                 }, (err) => { throw new Error(`${err}`); });
             }, (error) => { throw new Error(`${error}`); });
         } catch (err) {
             setCodedCoords(err as Error);
-        } finally {
             setIsLoading(false);
         }
     }, [routeToDisplay]);
@@ -48,10 +48,9 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
     return (
         <main className="mainMap">
             <div className="mapWrapper">
-                {!isLoading && (!isValidError(codedCoords) || codedCoords !== null) ? (
+                {(!isValidError(codedCoords) || codedCoords !== null) && (
                     <>
-                        <div className="mapContainer">
-
+                        <div className="mapContainer" style={{ display: isLoading ? "none" : undefined }}>
                             <MapContainer
                                 doubleClickZoom={false}
                                 id="mapId"
@@ -82,7 +81,8 @@ export const MapDisplayer: React.FC<MapDisplayerProps> = ({ routeToDisplay }) =>
                             />
                         )}
                     </>
-                ) : <HashLoader loading={true} size={100} />}
+                )}
+                <HashLoader loading={isLoading} size={100} />
             </div>
         </main>
     );
