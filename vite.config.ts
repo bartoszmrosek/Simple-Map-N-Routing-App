@@ -4,7 +4,7 @@ import eslint from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/<repo>/",
+  base: "https://bartoszmrosek.github.io/Simple-Map-N-Routing-App/",
   plugins: [react(), eslint()],
   test: {
     globals: true,

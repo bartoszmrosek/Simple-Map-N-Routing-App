@@ -11,7 +11,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -u 'github-actions-bot <support+actions@github.com>'"
   },
   "dependencies": {
     "@here/maps-api-for-javascript": "^1.38.0",

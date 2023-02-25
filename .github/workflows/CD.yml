@@ -41,5 +41,6 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.email bartoszmrosek@op.pl
-          git config --global user.name Bartosz Mrosek
+          git config --global user.name bartoszmrosek
+          git remote set-url origin https://bartoszmrosek:${{ secrets.GH_SECRET }}@github.com/bartoszmrosek/Simple-Map-N-Routing-App.git
           yarn run deploy
