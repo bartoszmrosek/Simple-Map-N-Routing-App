@@ -42,5 +42,5 @@ jobs:
         run: |
           git config --global user.email bartoszmrosek@op.pl
           git config --global user.name Bartosz
-          git remote set-url origin https://Bartosz:${{ secrets.GH_SECRET }}@github.com/bartoszmrosek/Simple-Map-N-Routing-App.git
+          git remote set-url origin https://Bartosz:${{ secrets.GH_PAGES }}@github.com/bartoszmrosek/Simple-Map-N-Routing-App.git
           yarn run deploy
