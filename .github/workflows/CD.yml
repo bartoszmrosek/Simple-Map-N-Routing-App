@@ -37,7 +37,7 @@ jobs:
 
       - name: Build
         run: yarn run build
-
+# Incredibly hard to pull this one out
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.email bartoszmrosek@op.pl
